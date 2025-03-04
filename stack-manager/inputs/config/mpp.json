@@ -1,0 +1,10 @@
+{
+    "services": {
+        "includes": [
+            "vis-backend-agent"
+        ]
+    },
+    "volumes": {
+        "vis-backend": "vis-backend"
+    }
+}
