@@ -1,0 +1,42 @@
+{
+    "type": "visualisation",
+    "ServiceSpec": {
+        "Name": "visualisation",
+        "TaskTemplate": {
+            "ContainerSpec": {
+                "Image": "ghcr.io/theworldavatar/viz:5.16.10",
+                "Env": [
+                    "KEYCLOAK=false",
+                    "PROTECTED_PAGES=/map",
+                    "REACT_APP_USE_GEOSERVER_PROXY=false",
+                    "REACT_APP_SERVER_URL=http://localhost:3838/visualisation",
+                    "REDIS_HOST=host.docker.internal",
+                    "ASSET_PREFIX=/visualisation",
+                    "ROLE_PROTECTED_PAGES=/role,/protected,/pages",
+                    "ROLE=viz:protected"
+                ],
+                "Mounts": [
+                    {
+                        "Type": "bind",
+                        "Source": "vis-resources",
+                        "Target": "/twa/public"
+                    }
+                ],
+                "Secrets": [
+                    {
+                        "SecretName": "mapbox_username"
+                    },
+                    {
+                        "SecretName": "mapbox_api_key"
+                    }
+                ]
+            }
+        }
+    },
+    "endpoints": {
+        "ui": {
+            "url": "http://localhost:3000",
+            "externalPath": "/visualisation"
+        }
+    }
+}
