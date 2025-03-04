@@ -1,0 +1,4 @@
+services:
+  stack-data-uploader:
+    build:
+      target: test
