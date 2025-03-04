@@ -1,0 +1,10 @@
+{
+    "datasetDirectory": "kg",
+    "dataSubsets": [
+      {
+        "type": "rdf",
+        "subdirectory": "shacl",
+        "skip": false
+      }
+    ]
+}
