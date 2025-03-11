@@ -1,0 +1,86 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX om: <http://www.ontology-of-units-of-measure.org/resource/om-2/>
+PREFIX mpo: <http://www.theworldavatar.com/kg/ontomatpassport/>
+SELECT ?p ?lFIVal ?MCIVal
+	WHERE { ?mP rdf:type mpo:MaterialPassport .
+	                  ?p   rdf:type mpo:Product .
+                                          ?mp mpo:describes ?p .
+                                          ?m rdf:type mpo:Mass .
+                                          ?p mpo:hasProperty ?m .
+                                          ?pMe rdf:type om:Measure .
+                                          ?m om:hasValue ?pMe .
+                                          ?pMe om:hasNumericalValue ?matMassVal .
+                                          ?fFRe rdf:type mpo:FeedstockFractionFromRecycledProduct .
+                                          ?p mpo:hasProperty ?fFRe .
+                                          ?fFReMe rdf:type om:Measure .
+                                          ?fFRe om:hasValue ?fFReMe .
+                                          ?fFReMe om:hasNumericalValue ?fFReVal .
+                                          ?fFRu rdf:type mpo:FeedstockFractionFromReusedProduct .
+                                          ?p mpo:hasProperty ?fFRu .
+                                          ?fFRuMe rdf:type om:Measure .
+                                          ?fFRu om:hasValue ?fFRuMe .
+                                          ?fFRuMe om:hasNumericalValue ?fFRuVal .
+                                          BIND(?fFReVal + ?fFRuVal AS ?fFVal)
+                                          BIND(1 - ?fFVal AS ?fFFinalVal)
+                                          ?vMass rdf:type mpo:VirginContentMass .
+                                          ?p mpo:hasProperty ?vMass .
+                                          ?vMassMe rdf:type om:Measure .
+                                          ?vMass om:hasValue ?vMassMe .
+                                          BIND(?matMassVal * ?fFFinalVal AS ?vMassVal)
+                                          ?cRRe rdf:type mpo:ProductFractionCollectedForRecycling .                                           
+                                          ?p mpo:hasProperty ?cRRe .
+                                          ?cRReMe rdf:type om:Measure .
+                                          ?cRRe om:hasValue ?cRReMe .
+                                          ?cRReMe om:hasNumericalValue ?cRReVal .
+                                          ?cURe rdf:type mpo:ProductFractionCollectedForReuse .                                           
+                                          ?p mpo:hasProperty ?cURe .
+                                          ?cUReMe rdf:type om:Measure .
+                                          ?cURe om:hasValue ?cUReMe .
+                                          ?cUReMe om:hasNumericalValue ?cUReVal .
+                                           BIND(?cRReVal + ?cUReVal AS ?cRCUVal)
+                                           BIND(1 - ?cRCUVal AS ?cRCUFinalVal)
+                                          ?w0Mass rdf:type mpo:WasteMassAfterTakingRecyclableReusablePortion .                                           
+                                          ?p mpo:hasProperty ?w0Mass .
+                                          ?w0MassMe rdf:type om:Measure .
+                                          ?w0Mass om:hasValue ?w0MassMe .
+                                          BIND(?matMassVal * ?cRCUFinalVal AS ?w0MassVal)
+                                          ?eCRe rdf:type mpo:RecyclingEfficiencyForPortionCollectedForRecycling .                                           
+                                          ?p mpo:hasProperty ?eCRe .
+                                          ?eCReMe rdf:type om:Measure .
+                                          ?eCRe om:hasValue ?eCReMe .
+                                          ?eCReMe om:hasNumericalValue ?eCReVal .
+                                          BIND(1 - ?eCReVal AS ?eCReSubVal)
+                                          BIND(?eCReSubVal * ?cRReVal AS ?eCCRMulVal)
+                                          ?wCMass rdf:type mpo:WasteMassGeneratedInRecyclingCollectedPortion .                                           
+                                          ?p mpo:hasProperty ?wCMass .
+                                          ?wCMassMe rdf:type om:Measure .
+                                          ?wCMass om:hasValue ?wCMassMe .
+                                          BIND(?matMassVal * ?eCCRMulVal AS ?wCMassVal)
+                                          ?eFRe rdf:type mpo:RecyclingEfficiencyForProducingFeedstock .                                           
+                                          ?p mpo:hasProperty ?eFRe .
+                                          ?eFReMe rdf:type om:Measure .
+                                          ?eFRe om:hasValue ?eFReMe .
+                                          ?eFReMe om:hasNumericalValue ?eFReVal .
+                                          BIND(1 - ?eFReVal AS ?eFReSubVal)
+                                          BIND(?eFReSubVal * ?fFReVal AS ?eFFrMulVal)
+                                          BIND(?eFFrMulVal / ?eFReVal AS ?eFFrEfDivVal)
+                                          ?wFMass rdf:type mpo:WasteMassGeneratedInProducingRecylcedFeedstock .                                           
+                                          ?p mpo:hasProperty ?wFMass .
+                                          ?wFMassMe rdf:type om:Measure .
+                                          ?wFMass om:hasValue ?wFMassMe .
+                                          BIND(?matMassVal * ?eFFrEfDivVal AS ?wFMassVal)
+                                          ?tWMass rdf:type mpo:TotalWasteMass .                                           
+                                          ?p mpo:hasProperty ?tWMass .
+                                          ?tWMassMe rdf:type om:Measure .
+                                          ?tWMass om:hasValue ?tWMassMe .
+                                          BIND(?wCMassVal + ?wFMassVal AS ?wCWFAddMassVal)
+                                          BIND(?wCWFAddMassVal / 2 AS ?wCWFDivMassVal)
+                                          BIND(?w0MassVal + ?wCWFDivMassVal AS ?tWMassVal)
+                                          BIND((?wFMassVal - ?wCMassVal) / 2 AS ?wFWCDivMassVal)
+                                          BIND((?matMassVal * 2) + ?wFWCDivMassVal AS ?lFIDenominator)
+                                          BIND((?vMassVal + ?tWMassVal) / ?lFIDenominator AS ?lFIVal)
+                                          BIND(1 - (?lFIVal * 0.9) AS ?MCIVal)
+}
