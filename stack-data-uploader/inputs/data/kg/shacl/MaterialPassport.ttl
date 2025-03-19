@@ -88,8 +88,7 @@ base:MaterialPassportShape
     sh:order 8;
 	sh:path ontomatpassport:MaterialCircularityIndicator ;
     sh:datatype xsd:decimal ;
-    sh:minCount 1 ;
-    sh:maxCount 1 ;
+    sh:minCount 0 ;
   ] .
   
 base:MassShape
@@ -109,7 +108,7 @@ base:MassShape
     sh:description "The unit associated with the value of mass.";
     sh:order 1;
     sh:path (om:hasValue om:hasUnit) ;
-    sh:in om:Unit ;
+    sh:in (om:kilogram om:gram om:milligram om:tonne) ;
     sh:minCount 1 ;
     sh:maxCount 1 ;
   ] .
