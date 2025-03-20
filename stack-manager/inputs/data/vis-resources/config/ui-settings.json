@@ -16,7 +16,6 @@
   "resources": {
     "registry": {
       "url": "http://localhost:3838/vis-backend-agent",
-      "data": "agreement",
       "paths": ["material"]
     }
   }
