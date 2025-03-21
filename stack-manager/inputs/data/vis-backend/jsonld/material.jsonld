@@ -1,0 +1,63 @@
+{
+    "@context": {
+      "xsd": "http://www.w3.org/2001/XMLSchema#"
+    },
+    "@id": {
+      "@replace": "id",
+      "@type": "iri",
+      "prefix": "https://www.theworldavatar.com/kg/ontomatpassport/"
+    },
+    "@type": "https://www.theworldavatar.com/kg/ontomatpassport/MaterialPassport",
+    "https://www.theworldavatar.com/kg/ontomatpassport/Mass": {
+      "@id": {
+        "@replace": "id",
+        "@type": "iri",
+        "prefix": "https://www.theworldavatar.com/kg/ontomatpassport/Mass/"
+      },
+      "@type": "http://www.ontology-of-units-of-measure.org/resource/om-2/Quantity",
+      "http://www.ontology-of-units-of-measure.org/resource/om-2/hasValue": {
+        "@id": {
+          "@replace": "id",
+          "@type": "iri",
+          "prefix": "https://www.theworldavatar.com/kg/ontomatpassport/Mass/quantity/"
+        },
+        "@type": "http://www.ontology-of-units-of-measure.org/resource/om-2/Measure",
+        "http://www.ontology-of-units-of-measure.org/resource/om-2/hasNumericalValue": {
+          "@replace": "value",
+          "@type": "literal"
+        },
+        "http://www.ontology-of-units-of-measure.org/resource/om-2/hasUnit": {
+          "@replace": "unit",
+          "@type": "iri"
+        }
+      }
+    },
+    "https://www.theworldavatar.com/kg/ontomatpassport/FeedstockFractionFromRecycledProduct": {
+      "@replace": "FR",
+      "@type": "literal"
+    },
+    "https://www.theworldavatar.com/kg/ontomatpassport/FeedstockFractionFromReusedProduct": {
+      "@replace": "FU",
+      "@type": "literal"
+    },
+    "https://www.theworldavatar.com/kg/ontomatpassport/ProductFractionCollectedForRecycling": {
+      "@replace": "CR",
+      "@type": "literal"
+    },
+    "https://www.theworldavatar.com/kg/ontomatpassport/ProductFractionCollectedForReuse": {
+      "@replace": "CU",
+      "@type": "literal"
+    },
+    "https://www.theworldavatar.com/kg/ontomatpassport/RecyclingEfficiencyForPortionCollectedForRecycling": {
+      "@replace": "EC",
+      "@type": "literal"
+    },
+    "https://www.theworldavatar.com/kg/ontomatpassport/RecyclingEfficiencyForProducingFeedstock": {
+      "@replace": "EF",
+      "@type": "literal"
+    },
+    "https://www.theworldavatar.com/kg/ontomatpassport/MaterialCircularityIndicator": {
+      "@replace": "MCI",
+      "@type": "literal"
+    }
+  }

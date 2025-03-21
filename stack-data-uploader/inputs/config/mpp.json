@@ -1,0 +1,24 @@
+{
+    "datasetDirectory": "kg",
+    "namespace": {
+      "name": "mpp",
+      "properties": {
+        "com.bigdata.rdf.store.AbstractTripleStore.triplesMode": true,
+        "com.bigdata.rdf.sail.truthMaintenance": false,
+        "com.bigdata.rdf.store.AbstractTripleStore.axiomsClass": "com.bigdata.rdf.axioms.NoAxioms",
+        "com.bigdata.journal.AbstractJournal.bufferMode": "DiskRW"
+      }
+    },
+    "dataSubsets": [
+      {
+        "type": "rdf",
+        "subdirectory": "ontology",
+        "skip": false
+      },
+      {
+        "type": "rdf",
+        "subdirectory": "shacl",
+        "skip": false
+      }
+    ]
+}

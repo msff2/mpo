@@ -1,0 +1,114 @@
+@prefix base:      		<https://theworldavatar.io/kg/matpassport/> .
+@prefix ontomatpassport:      	<https://www.theworldavatar.com/kg/ontomatpassport/> .
+@prefix om:        		<http://www.ontology-of-units-of-measure.org/resource/om-2/> .
+@prefix sh:        		<http://www.w3.org/ns/shacl#> .
+@prefix xsd:       		<http://www.w3.org/2001/XMLSchema#> .
+
+base:MaterialPassportShape
+  a sh:NodeShape ;
+  sh:targetClass ontomatpassport:MaterialPassport ;
+  sh:property [
+    sh:name "id";
+    sh:description "Identifier for the MaterialPassport.";
+    sh:order 0;
+    sh:path ( 
+      ontomatpassport:Mass
+      [sh:inversePath ontomatpassport:Mass]
+    ) ;
+    sh:datatype xsd:string ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ; 
+  sh:property [
+    sh:name "mass";
+    sh:description "Value and unit of mass.";
+    sh:order 1;
+	sh:path ontomatpassport:Mass ;
+    sh:node base:MassShape ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+  sh:property [
+    sh:name "FR";
+    sh:description "The fraction of feedstock from recycled products";
+    sh:order 2;
+	sh:path ontomatpassport:FeedstockFractionFromRecycledProduct ;
+    sh:datatype xsd:decimal ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+  sh:property [
+    sh:name "FU";
+    sh:description "The fraction of feedstock from reused products";
+    sh:order 3;
+	sh:path ontomatpassport:FeedstockFractionFromReusedProduct ;
+    sh:datatype xsd:decimal ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+  sh:property [
+    sh:name "CR";
+    sh:description "The fraction of product collected for recycling";
+    sh:order 4;
+	sh:path ontomatpassport:ProductFractionCollectedForRecycling ;
+    sh:datatype xsd:decimal ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+  sh:property [
+    sh:name "CU";
+    sh:description "The fraction of product collected for reuse";
+    sh:order 5;
+	sh:path ontomatpassport:ProductFractionCollectedForReuse ;
+    sh:datatype xsd:decimal ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+  sh:property [
+    sh:name "EC";
+    sh:description "Recycling process efficiency for a product part collected for recycling";
+    sh:order 6;
+	sh:path ontomatpassport:RecyclingEfficiencyForPortionCollectedForRecycling ;
+    sh:datatype xsd:decimal ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+  sh:property [
+    sh:name "EF";
+    sh:description "Recycling process efficiency used to produce recycled feedstock for a product";
+    sh:order 7;
+	sh:path ontomatpassport:RecyclingEfficiencyForProducingFeedstock ;
+    sh:datatype xsd:decimal ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+  sh:property [
+    sh:name "MCI";
+    sh:description "Material circularity indicator";
+    sh:order 8;
+	sh:path ontomatpassport:MaterialCircularityIndicator ;
+    sh:datatype xsd:decimal ;
+    sh:minCount 0 ;
+  ] .
+  
+base:MassShape
+  a sh:NodeShape ;
+  sh:targetClass om:Quantity ;
+  sh:property [
+    sh:name "value";
+    sh:description "The value of mass.";
+    sh:order 0;
+    sh:path (om:hasValue om:hasNumericalValue) ;
+    sh:datatype xsd:decimal ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+  sh:property [
+    sh:name "unit";
+    sh:description "The unit associated with the value of mass.";
+    sh:order 1;
+    sh:path (om:hasValue om:hasUnit) ;
+    sh:in (om:kilogram om:gram om:milligram om:tonne) ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] .
